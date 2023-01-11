@@ -281,6 +281,32 @@ class KikClient:
         log.info("[+] Sending a sticker message to '{}'...".format(peer_jid))
         return self._send_xmpp_element(chatting.OutgoingSticker(peer_jid, file_location))
 
+    def send_fake_system_message(self, peer_jid, sysmsg_body):
+        """
+        Sends a fake system message to another person or a group with the given JID/username.
+        :param peer_jid: The Jabber ID for which to send the message (looks like username_ejs@talk.kik.com)
+                         If you don't know the JID of someone, you can also specify a kik username here.
+        :param sysmsg_body: The message that the fake system message will display.
+        """
+        if self.is_group_jid(peer_jid):
+            log.info("[+] Sending '{}' fake system message to group '{}'...".format(sysmsg_body, peer_jid))
+            return self._send_xmpp_element(chatting.OutgoingFakeSystemMessage(peer_jid, sysmsg_body, True))
+        else:
+            log.info("[+] Sending '{}' fake system message to user '{}'...".format(sysmsg_body, peer_jid))
+            return self._send_xmpp_element(chatting.OutgoingFakeSystemMessage(peer_jid, sysmsg_body, False))
+
+    # Can be sent to a person's direct messages but it won't be visible.
+    def send_fake_status_message(self, peer_jid, status_body, status_jid):
+        """
+        Sends a fake status message to another person or a group with the given JID/username.
+        :param peer_jid: The Jabber ID for which to send the message (looks like username_ejs@talk.kik.com)
+                         If you don't know the JID of someone, you can also specify a kik username here.
+        :param status_body: The message that the fake status message will display.
+        :param status_jid: The Jabber ID for which the status message will display (looks like username_ejs@talk.kik.com).
+        """
+        log.info("[+] Sending '{}' fake status message to group '{}'...".format(status_body, peer_jid))
+        return self._send_xmpp_element(chatting.OutgoingFakeStatusMessage(peer_jid, status_body, status_jid, True, True, True))
+
     def xiphias_get_users(self, peer_jids: Union[str, List[str]]):
         """
         Calls the new format xiphias message to request user data such as profile creation date
