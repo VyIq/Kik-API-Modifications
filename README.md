@@ -4,6 +4,8 @@ Modifications done to Tomer's Kik Bot API by me
 ## chatting.py Modifications
 * **Added OutgoingSticker class**
 * **Added OutgoingSponsoredGIFMessage class**
+* **Added OutgoingFakeSystemMessage class**
+* **Added OutgoingFakeStatusMessage class**
 * **Added Tenor dev API key**
 
 ## parsing_utilities.py Modifications
@@ -12,6 +14,8 @@ Modifications done to Tomer's Kik Bot API by me
 ## client.py Modifications
 * **Added send_sponsored_gif_image method**
 * **Added send_sticker method**
+* **Added send_fake_system_message method**
+* **Added send_fake_status_message method**
 
 ## Miscellaneous files
 * **example_bot.py** - This is a basic bot to demonstrate the new modifications.
