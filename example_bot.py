@@ -55,6 +55,17 @@ class EchoBot(KikClientCallback):
             self.client.add_friend(chat_message.from_jid)
             self.client.send_chat_message(chat_message.from_jid, "You can now add me to groups! <3")
 
+        elif chat_message.body == "/gif":
+            self.client.send_sponsored_gif_image(chat_message.from_jid,
+            "Kitty", "URL", "TITLE", "ACTION")
+
+        elif chat_message.body == "/sticker":
+            file_path = "sticker.png"
+            self.client.send_sticker(chat_message.from_jid, file_path)
+
+        elif chat_message.body == "/system":
+            self.client.send_fake_system_message(chat_message.from_jid, "This is a system message!")
+
     def on_group_message_received(self, chat_message: chatting.IncomingGroupChatMessage):
         if str(chat_message.raw_element).count("</alias-sender>") > 1 and "</alias-sender>" not in str(chat_message.body):
             return
@@ -73,6 +84,12 @@ class EchoBot(KikClientCallback):
         elif chat_message.body == "/sticker":
             file_path = "sticker.png"
             self.client.send_sticker(chat_message.group_jid, file_path)
+
+        elif chat_message.body == "/status":
+            self.client.send_fake_status_message(chat_message.group_jid, "This is a status message!", "quacking_5zh@talk.kik.com")
+
+        elif chat_message.body == "/system":
+            self.client.send_fake_system_message(chat_message.group_jid, "This is a system message!")
 
     def on_roster_received(self, response: FetchRosterResponse):
         print("[+] Chat partners:\n" + '\n'.join([str(member) for member in response.peers]))
