@@ -528,7 +528,7 @@ class OutgoingGIFMessage(XMPPElement):
 
             img.convert("RGB").save(buffered, format="JPEG")
             img_str = base64.b64encode(buffered.getvalue()).decode('ascii')
-            return img_str, gif["results"][0]["media"][lmt]
+            return img_str, gif["results"][0]["media"][0]
         else:
             return ""
 
