@@ -337,7 +337,7 @@ class OutgoingFakeSystemMessage(XMPPElement):
 
 class OutgoingFakeStatusMessage(XMPPElement):
     """
-    Represents an outgoing fake system message to another kik entity (group)
+    Represents an outgoing fake status message to another kik entity (group)
     """
     def __init__(self, peer_jid, status_body, status_jid, super_admin=True, admin=True, dm_disabled=True):
         super().__init__()
