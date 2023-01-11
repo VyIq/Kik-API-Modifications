@@ -312,6 +312,61 @@ class OutgoingSticker(XMPPElement):
         return data.encode()
 
 
+class OutgoingFakeSystemMessage(XMPPElement):
+    """
+    Represents an outgoing fake system message to another kik entity (member or group)
+    """
+    def __init__(self, peer_jid, sysmsg_body, is_group=False):
+        super().__init__()
+        self.peer_jid = peer_jid
+        self.sysmsg_body = sysmsg_body
+        self.is_group = is_group
+
+    def serialize(self):
+        timestamp = str(int(round(time.time() * 1000)))
+        message_type = "chat" if not self.is_group else "groupchat"
+        data = ('<message type="{0}" to="{1}" id="{2}" cts="{3}">'
+                '<kik push="true" qos="true" timestamp="{3}"/>'
+                '<request xmlns="kik:message:receipt" r="true" d="true">'
+                '<sysmsg xmlns="kik:msg:info">{4}</sysmsg>'
+                '</request>'
+                '</message>'
+            ).format(message_type, self.peer_jid, self.message_id, timestamp, self.sysmsg_body)
+        return data.encode()
+
+
+class OutgoingFakeStatusMessage(XMPPElement):
+    """
+    Represents an outgoing fake system message to another kik entity (group)
+    """
+    def __init__(self, peer_jid, status_body, status_jid, super_admin=True, admin=True, dm_disabled=True):
+        super().__init__()
+        self.peer_jid = peer_jid
+        self.status_body = status_body
+        self.status_jid = status_jid
+        self.super_admin = super_admin
+        self.admin = admin
+        self.dm_disabled = dm_disabled
+
+    def serialize(self):
+        # message_type distinction not really needed
+        message_type = 'type="groupchat" xmlns="kik:groups"' if 'group' in self.peer_jid else 'type="chat"'
+        timestamp = str(int(round(time.time() * 1000)))
+        data = ('<message {0} to="{1}" id="{2}" cts="{3}">'
+                '<kik push="true" qos="true" timestamp="{3}"/>'
+                '<request xmlns="kik:message:receipt" r="true" d="true">'
+                '<g jid="{1}">'
+                '<m s="{4}" a="{5}" dmd="{6}">{7}</m>'
+                '</g>'
+                '<status jid="{7}">{8}</status>'
+                '</request>'
+                '</message>'
+                ).format(message_type, self.peer_jid, self.message_id, timestamp,
+                self.super_admin, self.admin, self.dm_disabled, self.status_jid,
+                self.status_body)
+        return data.encode()
+
+
 class IncomingMessageReadEvent(XMPPResponse):
     def __init__(self, data: BeautifulSoup):
         super().__init__(data)
