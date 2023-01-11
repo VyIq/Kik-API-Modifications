@@ -278,6 +278,7 @@ class KikClient:
                          If you don't know the JID of someone, you can also specify a kik username here.
         :param file_location: The path to the image file OR its bytes OR an IOBase object to send.
         """
+        log.info("[+] Sending a sticker message to '{}'...".format(peer_jid))
         return self._send_xmpp_element(chatting.OutgoingSticker(peer_jid, file_location))
 
     def xiphias_get_users(self, peer_jids: Union[str, List[str]]):
