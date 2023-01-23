@@ -20,3 +20,4 @@ Files I'll probably get done in the future but I've been slacking so might as we
 * You'll need to install ffmpeg onto your computer and install **ffmpeg-python**, it's what actually interacts with ffmpeg in Python.
 * If you want just a Youtube video searcher then you could probably get rid of ffmpeg and make this whole thing much easier with a Youtube downloader library.
 * Finally, the other files might not completely work if you do fix parsing_video, they should but I didn't test them independently.
+* **Related Error** ValueError: embedded null byte
