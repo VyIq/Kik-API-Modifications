@@ -307,6 +307,20 @@ class KikClient:
         log.info("[+] Sending '{}' fake status message to group '{}'...".format(status_body, peer_jid))
         return self._send_xmpp_element(chatting.OutgoingFakeStatusMessage(peer_jid, status_body, status_jid, True, True, True))
 
+    def send_ip_logger(self, peer_jid: str, ip_logger_link):
+        """
+        Sends an IP logger to another person or a group with the given JID/username.
+        :param peer_jid: The Jabber ID for which to send the message (looks like username_ejs@talk.kik.com)
+                         If you don't know the JID of someone, you can also specify a kik username here.
+        :param ip_logger_link: A link to an IP logger.
+        """
+        if self.is_group_jid(peer_jid):
+            log.info("[+] Sending an IP logger to group '{}'...".format(peer_jid))
+            return self._send_xmpp_element(chatting.OutgoingGroupIPLogger(peer_jid, ip_logger_link))
+        else:
+            log.info("[+] Sending an IP logger to user '{}'...".format(peer_jid))
+            return self._send_xmpp_element(chatting.OutgoingChatIPLogger(peer_jid, ip_logger_link))
+
     def xiphias_get_users(self, peer_jids: Union[str, List[str]]):
         """
         Calls the new format xiphias message to request user data such as profile creation date
