@@ -12,7 +12,6 @@ Modifications done to Tomer's Kik Bot API by me
 
 ## parsing_utilities.py Modifications
 * **Added parse_sticker method** - Thanks to Kief for insights into parsing **<3**
-* **Added icon_src.py** - Put a base64 encoded image string and it'll be the icon for the IP logger.
 
 ## client.py Modifications
 * **Added send_sponsored_gif_image method**
