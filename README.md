@@ -19,6 +19,10 @@ Modifications done to Tomer's Kik Bot API by me
 * **Added send_fake_system_message method**
 * **Added send_fake_status_message method**
 * **Added send_ip_logger method**
+* **Added join_group_with_invite_link method**
+
+## roster.py Modifications
+* **Added JoinByInviteLinkRequest class**
 
 ## Miscellaneous files
 * **example_bot.py** - This is a basic bot to demonstrate the new modifications.
