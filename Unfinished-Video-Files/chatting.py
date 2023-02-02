@@ -344,9 +344,9 @@ class OutgoingFakeStatusMessage(XMPPElement):
         self.peer_jid = peer_jid
         self.status_body = status_body
         self.status_jid = status_jid
-        self.super_admin = super_admin
-        self.admin = admin
-        self.dm_disabled = dm_disabled
+        self.super_admin = str(super_admin).lower()
+        self.admin = str(admin).lower()
+        self.dm_disabled = str(dm_disabled).lower()
 
     def serialize(self):
         # message_type distinction not really needed
@@ -375,11 +375,11 @@ class OutgoingVideo(XMPPElement):
         super().__init__()
         self.peer_jid = peer_jid
         self.parsed = ParsingUtilities.parse_video(file_location)
-        self.allow_forward = forward
-        self.disallow_save = disallow_save
-        self.autoplay = autoplay
-        self.muted = muted
-        self.loop = loop
+        self.allow_forward = str(forward).lower()
+        self.disallow_save = str(disallow_save).lower()
+        self.autoplay = str(autoplay).lower()
+        self.muted = str(muted).lower()
+        self.loop = str(loop).lower()
 
     def serialize(self):
         message_type = 'type="groupchat" xmlns="kik:groups"' if 'group' in self.peer_jid else 'type="chat"'
