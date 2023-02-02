@@ -344,9 +344,9 @@ class OutgoingFakeStatusMessage(XMPPElement):
         self.peer_jid = peer_jid
         self.status_body = status_body
         self.status_jid = status_jid
-        self.super_admin = super_admin
-        self.admin = admin
-        self.dm_disabled = dm_disabled
+        self.super_admin = str(super_admin).lower()
+        self.admin = str(admin).lower()
+        self.dm_disabled = str(dm_disabled).lower()
 
     def serialize(self):
         # message_type distinction not really needed
@@ -644,7 +644,7 @@ class OutgoingSponsoredGIFMessage(XMPPElement):
     def __init__(self, peer_jid, search_term, sponsored_url, sponsored_title, sponsored_action, is_group=True, forward=True):
         super().__init__()
         self.peer_jid = peer_jid
-        self.allow_forward = forward
+        self.allow_forward = str(forward).lower()
         self.sponsored_url = sponsored_url
         self.sponsored_title = sponsored_title
         self.sponsored_action = sponsored_action
