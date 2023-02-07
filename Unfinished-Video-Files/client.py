@@ -252,7 +252,7 @@ class KikClient:
             return self._send_xmpp_element(chatting.OutgoingSponsoredGIFMessage(peer_jid, search_term, sponsored_url, sponsored_title, sponsored_action, False))
 
     def send_video(self, peer_jid: str, file_location):
-         """
+        """
         Sends a video chat message to another person or a group with the given JID/username.
         :param peer_jid: The Jabber ID for which to send the message (looks like username_ejs@talk.kik.com)
                          If you don't know the JID of someone, you can also specify a kik username here.
