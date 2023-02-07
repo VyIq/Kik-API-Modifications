@@ -14,16 +14,15 @@ SALT = "YA=57aSA!ztajE5"
 
 def upload_gallery_image(OutgoingChatImage, jid, username, password):
     url = "https://platform.kik.com/content/files/" + OutgoingChatImage.content_id
-    username_passkey = CryptographicUtils.key_from_password(username, password)
     send_image(url, OutgoingChatImage, jid, username, password)
 
 def upload_gallery_video(OutgoingVideo, jid, username, password):
     url = "https://platform.kik.com/content/files/" + OutgoingVideo.content_id
-    username_passkey = CryptographicUtils.key_from_password(username, password)
     send_video(url, OutgoingVideo, jid, username, password)
 
 def send_image(url, image, jid, username, password):
     app_id = "com.kik.ext.gallery"
+    username_passkey = CryptographicUtils.key_from_password(username, password)
     v = SALT + image.content_id + app_id
 
     verification = hashlib.sha1(v.encode('UTF-8')).hexdigest()
@@ -56,6 +55,7 @@ def send_image(url, image, jid, username, password):
 
 def send_video(url, video, jid, username, password):
     app_id = "com.kik.ext.gallery"
+    username_passkey = CryptographicUtils.key_from_password(username, password)
     v = SALT + video.content_id + app_id
 
     verification = hashlib.sha1(v.encode('UTF-8')).hexdigest()
@@ -73,9 +73,6 @@ def send_video(url, video, jid, username, password):
         'x-kik-content-md5': video.parsed['MD5'],
         'x-kik-chunk-number': '0',
         'x-kik-chunk-md5': video.parsed['MD5'],
-        'x-kik-sha1-original': video.parsed['SHA1'].upper(),
-        'x-kik-sha1-scaled': video.parsed['SHA1Scaled'].upper(),
-        'x-kik-blockhash-scaled': video.parsed['blockhash'].upper(),
         'Content-Type': 'video/mp4',
         'x-kik-content-extension': '.mp4'
     }
