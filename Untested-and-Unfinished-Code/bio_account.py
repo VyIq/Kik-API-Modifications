@@ -110,7 +110,7 @@ class ChangeBioRequest(XMPPElement):
                 '<body>{}</body>'
                 '</query>'
                 '</iq>'
-            ).format(self.message_id, ParsingUtilities.decode_base64(self.bio))
+            ).format(self.message_id, ParsingUtilities.decode_base64(self.bio)) # Not base64, actually a protubuf string
         return data.encode()
 
 
