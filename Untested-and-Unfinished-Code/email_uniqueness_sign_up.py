@@ -98,7 +98,7 @@ class CheckEmailUniquenessRequest(XMPPElement):
     def serialize(self) -> bytes:
         data = ('<iq type="get" id="{}">'
                 '<query xmlns="kik:iq:check-unique">'
-                '<email>{}</email>
+                '<email>{}</email>'
                 '</query>'
                 '</iq>').format(self.message_id, self.email)
 
