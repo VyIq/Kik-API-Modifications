@@ -477,7 +477,7 @@ class KikClient:
         :param username: The email to check for its existence
         """
         log.info("[+] Checking for Uniqueness of email '{}'".format(email))
-        return self._send_xmpp_element(sign_up.CheckUsernameEmailRequest(email))
+        return self._send_xmpp_element(sign_up.CheckEmailUniquenessRequest(email))
 
     def set_profile_picture(self, filename):
         """
