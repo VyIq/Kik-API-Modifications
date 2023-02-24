@@ -24,7 +24,7 @@ class OutgoingAddressBookMatching(XMPPElement):
         return data.encode()
 
 # client.py
-def check_username_uniqueness(self, account_email, contact_email):
+def check_email_contact(self, account_email, contact_email):
     """
     Checks contact_email for existence (not exactly a descriptive docstring)
     """
