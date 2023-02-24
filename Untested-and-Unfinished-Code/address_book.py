@@ -9,7 +9,6 @@ class OutgoingAddressBookMatching(XMPPElement):
         self.contact_email = contact_email
 
     def serialize(self):
-        timestamp = str(int(round(time.time() * 1000)))
         data = ('<iq type="set" id="{}">'
                 '<match xmlns="kik:iq:matching">'
                 '<context reason="talk-to" opt-status="opt-in" />'
