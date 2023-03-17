@@ -1,0 +1,58 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--PROTO_INTERESTS "chatinterest.anime". Also this "v4queue_earn_spend"?-->
+<iq type="set" id="{ID}">
+  <query xmlns="kik:iq:xiphias:bridge" service="mobile.matching.v1.AnonMatching" method="FindChatPartner">
+    <body>{PROTO_INTERESTS}</body>
+  </query>
+</iq>
+
+<!--PROTO_AJID ends with _b-->
+<iq type="set" id="{ID}">
+  <query xmlns="kik:iq:xiphias:bridge" service="mobile.matching.v1.AnonMatching" method="GetChatSession">
+    <body>{PROTO_AJID}</body>
+  </query>
+</iq>
+
+<!--I don't know what the body is-->
+<iq type="set" id="{ID}">
+  <query xmlns="kik:iq:xiphias:bridge" service="mobile.matching.v1.AnonMatching" method="CancelFindChatPartner">
+    <body>ChIJakCr4QpZBxARG4VaL0TWM5s</body>
+  </query>
+</iq>
+
+<iq type="set" id="{ID}">
+  <query xmlns="kik:iq:xiphias:bridge" service="mobile.matching.v1.AnonMatching" method="InitiateFriending">
+    <body>{PROTO_AJID}</body>
+  </query>
+</iq>
+
+<iq type="set" id="{ID}">
+  <query xmlns="kik:iq:xiphias:bridge" service="mobile.matching.v1.AnonMatching" method="GetRemainingAnonChats">
+    <body>
+    </body>
+  </query>
+</iq>
+
+<iq type="set" id="{ID}">
+  <query xmlns="kik:iq:xiphias:bridge" service="mobile.matching.v1.AnonMatching" method="RateChatSession">
+    <body>{PROTO_AJID}</body>
+  </query>
+</iq>
+
+<iq type="set" id="{ID}">
+  <query xmlns="kik:iq:xiphias:bridge" service="mobile.matching.v1.AnonMatching" method="EndChatSession">
+    <body>{PROTO_AJID}</body>
+  </query>
+</iq>
+
+<message id="{ID}" from="{AJID}" xmlns="jabber:client" type="chat" to="{JID}">
+  <kik qos="true" timestamp="{TS}" push="true" hop="true" app="all"/>
+  <request d="false" r="false" xmlns="kik:message:receipt"/>
+  <status jid="{AJID}" special-visibility="true">{STATUS_MESSAGE}</status>
+  <alias-sender>{AJID}</alias-sender>
+  <anon-session>
+    <session-id>{ID}</session-id>
+    <session-end-time>{TS}</session-end-time>
+    <session-ended/>
+  </anon-session>
+</message>
